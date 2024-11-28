@@ -2,7 +2,7 @@ import os
 import random
 import unittest
 
-import tgcrypto
+import supertg
 
 
 class TestCTR256NIST(unittest.TestCase):
@@ -32,7 +32,7 @@ class TestCTR256NIST(unittest.TestCase):
         DFC9C58D B67AADA6 13C2DD08 457941A6
         """.replace(" ", "").replace("\n", ""))
 
-        self.assertEqual(tgcrypto.ctr256_encrypt(plaintext, key, iv, bytes(1)), ciphertext)
+        self.assertEqual(supertg.ctr256_encrypt(plaintext, key, iv, bytes(1)), ciphertext)
 
     def test_ctr256_decrypt(self):
         key = bytes.fromhex("""
@@ -58,7 +58,7 @@ class TestCTR256NIST(unittest.TestCase):
         F69F2445 DF4F9B17 AD2B417B E66C3710
         """.replace(" ", "").replace("\n", ""))
 
-        self.assertEqual(tgcrypto.ctr256_decrypt(ciphertext, key, iv, bytes(1)), plaintext)
+        self.assertEqual(supertg.ctr256_decrypt(ciphertext, key, iv, bytes(1)), plaintext)
 
 
 class TestCTR256Cryptography(unittest.TestCase):
@@ -70,7 +70,7 @@ class TestCTR256Cryptography(unittest.TestCase):
         plaintext = bytes.fromhex("53696E676C6520626C6F636B206D7367")
         ciphertext = bytes.fromhex("145AD01DBF824EC7560863DC71E3E0C0")
 
-        self.assertEqual(tgcrypto.ctr256_encrypt(plaintext, key, iv, bytes(1)), ciphertext)
+        self.assertEqual(supertg.ctr256_encrypt(plaintext, key, iv, bytes(1)), ciphertext)
 
     def test_ctr256_encrypt_extra2(self):
         key = bytes.fromhex("F6D66D6BD52D59BB0796365879EFF886C66DD51A5B6A99744B50590C87A23884")
@@ -78,7 +78,7 @@ class TestCTR256Cryptography(unittest.TestCase):
         plaintext = bytes.fromhex("000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F")
         ciphertext = bytes.fromhex("F05E231B3894612C49EE000B804EB2A9B8306B508F839D6A5530831D9344AF1C")
 
-        self.assertEqual(tgcrypto.ctr256_encrypt(plaintext, key, iv, bytes(1)), ciphertext)
+        self.assertEqual(supertg.ctr256_encrypt(plaintext, key, iv, bytes(1)), ciphertext)
 
     def test_ctr256_encrypt_extra3(self):
         key = bytes.fromhex("FF7A617CE69148E4F1726E2F43581DE2AA62D9F805532EDFF1EED687FB54153D")
@@ -86,7 +86,7 @@ class TestCTR256Cryptography(unittest.TestCase):
         plaintext = bytes.fromhex("000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F20212223")
         ciphertext = bytes.fromhex("EB6C52821D0BBBF7CE7594462ACA4FAAB407DF866569FD07F48CC0B583D6071F1EC0E6B8")
 
-        self.assertEqual(tgcrypto.ctr256_encrypt(plaintext, key, iv, bytes(1)), ciphertext)
+        self.assertEqual(supertg.ctr256_encrypt(plaintext, key, iv, bytes(1)), ciphertext)
 
 
 class TestCTR256Input(unittest.TestCase):
@@ -94,59 +94,59 @@ class TestCTR256Input(unittest.TestCase):
 
     def test_ctr256_encrypt_invalid_args_count(self):
         with self.assertRaisesRegex(TypeError, r"function takes exactly \d arguments \(\d given\)"):
-            tgcrypto.ctr256_encrypt(os.urandom(8), os.urandom(32), os.urandom(16))
+            supertg.ctr256_encrypt(os.urandom(8), os.urandom(32), os.urandom(16))
 
     def test_ctr256_encrypt_invalid_args_type(self):
         with self.assertRaisesRegex(TypeError, self.TYPE_ERROR_PATTERN):
-            tgcrypto.ctr256_encrypt(1, 2, 3, 4)
+            supertg.ctr256_encrypt(1, 2, 3, 4)
 
     def test_ctr256_encrypt_empty_data(self):
         with self.assertRaisesRegex(ValueError, r"Data must not be empty"):
-            tgcrypto.ctr256_encrypt(b"", os.urandom(32), os.urandom(16), bytes(1))
+            supertg.ctr256_encrypt(b"", os.urandom(32), os.urandom(16), bytes(1))
 
     def test_ctr256_encrypt_invalid_key_size(self):
         with self.assertRaisesRegex(ValueError, r"Key size must be exactly 32 bytes"):
-            tgcrypto.ctr256_encrypt(os.urandom(8), os.urandom(31), os.urandom(16), bytes(1))
+            supertg.ctr256_encrypt(os.urandom(8), os.urandom(31), os.urandom(16), bytes(1))
 
     def test_ctr256_encrypt_invalid_iv_size(self):
         with self.assertRaisesRegex(ValueError, r"IV size must be exactly 16 bytes"):
-            tgcrypto.ctr256_encrypt(os.urandom(8), os.urandom(32), os.urandom(15), bytes(1))
+            supertg.ctr256_encrypt(os.urandom(8), os.urandom(32), os.urandom(15), bytes(1))
 
     def test_ctr256_encrypt_invalid_state_size(self):
         with self.assertRaisesRegex(ValueError, r"State size must be exactly 1 byte"):
-            tgcrypto.ctr256_encrypt(os.urandom(8), os.urandom(32), os.urandom(16), bytes([1, 2, 3]))
+            supertg.ctr256_encrypt(os.urandom(8), os.urandom(32), os.urandom(16), bytes([1, 2, 3]))
 
     def test_ctr256_encrypt_invalid_state_value(self):
         with self.assertRaisesRegex(ValueError, r"State value must be in the range \[0, 15\]"):
-            tgcrypto.ctr256_encrypt(os.urandom(8), os.urandom(32), os.urandom(16), bytes([16]))
+            supertg.ctr256_encrypt(os.urandom(8), os.urandom(32), os.urandom(16), bytes([16]))
 
     def test_ctr256_decrypt_invalid_args_count(self):
         with self.assertRaisesRegex(TypeError, r"function takes exactly \d arguments \(\d given\)"):
-            tgcrypto.ctr256_decrypt(os.urandom(8), os.urandom(32), os.urandom(16))
+            supertg.ctr256_decrypt(os.urandom(8), os.urandom(32), os.urandom(16))
 
     def test_ctr256_decrypt_invalid_args_type(self):
         with self.assertRaisesRegex(TypeError, self.TYPE_ERROR_PATTERN):
-            tgcrypto.ctr256_decrypt(1, 2, 3, 4)
+            supertg.ctr256_decrypt(1, 2, 3, 4)
 
     def test_ctr256_decrypt_empty_data(self):
         with self.assertRaisesRegex(ValueError, r"Data must not be empty"):
-            tgcrypto.ctr256_decrypt(b"", os.urandom(32), os.urandom(16), bytes(1))
+            supertg.ctr256_decrypt(b"", os.urandom(32), os.urandom(16), bytes(1))
 
     def test_ctr256_decrypt_invalid_key_size(self):
         with self.assertRaisesRegex(ValueError, r"Key size must be exactly 32 bytes"):
-            tgcrypto.ctr256_decrypt(os.urandom(8), os.urandom(31), os.urandom(16), bytes(1))
+            supertg.ctr256_decrypt(os.urandom(8), os.urandom(31), os.urandom(16), bytes(1))
 
     def test_ctr256_decrypt_invalid_iv_size(self):
         with self.assertRaisesRegex(ValueError, r"IV size must be exactly 16 bytes"):
-            tgcrypto.ctr256_decrypt(os.urandom(8), os.urandom(32), os.urandom(15), bytes(1))
+            supertg.ctr256_decrypt(os.urandom(8), os.urandom(32), os.urandom(15), bytes(1))
 
     def test_ctr256_decrypt_invalid_state_size(self):
         with self.assertRaisesRegex(ValueError, r"State size must be exactly 1 byte"):
-            tgcrypto.ctr256_decrypt(os.urandom(8), os.urandom(32), os.urandom(16), bytes([1, 2, 3]))
+            supertg.ctr256_decrypt(os.urandom(8), os.urandom(32), os.urandom(16), bytes([1, 2, 3]))
 
     def test_ctr256_decrypt_invalid_state_value(self):
         with self.assertRaisesRegex(ValueError, r"State value must be in the range \[0, 15\]"):
-            tgcrypto.ctr256_decrypt(os.urandom(8), os.urandom(32), os.urandom(16), bytes([16]))
+            supertg.ctr256_decrypt(os.urandom(8), os.urandom(32), os.urandom(16), bytes([16]))
 
 
 class TestCTR256Random(unittest.TestCase):
@@ -165,8 +165,8 @@ class TestCTR256Random(unittest.TestCase):
         state = {state}
         state_copy = state.copy()
 
-        a = tgcrypto.ctr256_{mode1}(data, key, iv, state)
-        b = tgcrypto.ctr256_{mode2}(a, key, iv_copy, state_copy)
+        a = supertg.ctr256_{mode1}(data, key, iv, state)
+        b = supertg.ctr256_{mode2}(a, key, iv_copy, state_copy)
 
         self.assertEqual(data, b)
     """.replace("\n    ", "\n")
