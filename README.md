@@ -18,7 +18,7 @@ pip install Supertg
 API
 The Supertg library provides the following API:
 
-python
+```python
 Copy code
 def ige256_encrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...
 def ige256_decrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...
@@ -29,7 +29,7 @@ def ctr256_decrypt(data: bytes, key: bytes, iv: bytes, state: bytes) -> bytes: .
 def cbc256_encrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...
 def cbc256_decrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...
 Usage Examples
-IGE Mode
+IGE Mode```
 python
 Copy code
 import os
