@@ -1,0 +1,65 @@
+from setuptools import setup, Extension, find_packages
+
+with open("README.md", encoding="utf-8") as f:
+    readme = f.read()
+
+setup(
+    name="SuperTg",
+    version="1.0.0",
+    description="Fast and Portable Cryptography Extension Library for Telegram",
+    long_description=readme,
+    long_description_content_type="text/markdown",
+    url="https://github.com/Mambadevs/supertg",
+    download_url="https://github.com/Mambadevs/supertg/releases/latest",
+    author="Your Name",
+    author_email="Mambadeve@example.com",
+    license="MIT",
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: C++",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: Implementation",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Topic :: Security",
+        "Topic :: Security :: Cryptography",
+        "Topic :: Internet",
+        "Topic :: Communications",
+        "Topic :: Communications :: Chat",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Software Development :: Libraries :: Python Modules"
+    ],
+    keywords="telegram crypto cryptography encryption mtproto extension library aes",
+    project_urls={
+        "Tracker": "https://github.com/Mambadevs/supertg/issues",
+        "Community": "https://t.me/supertg_community",
+        "Source": "https://github.com/Mambadevs/supertg",
+        "Documentation": "https://Mambadevs.github.io/supertg",
+    },
+    python_requires="~=3.7",
+    packages=find_packages(),
+    test_suite="tests",
+    zip_safe=False,
+    ext_modules=[
+        Extension(
+            "supertg",
+            sources=[
+                "supertg/supertg.cpp",  
+                "supertg/aes256.cpp",  
+                "supertg/ige256.cpp", 
+                "supertg/ctr256.cpp", 
+                "supertg/cbc256.cpp"  
+            ],
+            language="c++",  
+            extra_compile_args=["-O2", "-std=c++17"]  
+        )
+    ]
+)
