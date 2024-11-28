@@ -11,9 +11,8 @@
 #include "ctr256.h"
 #include "cbc256.h"
 
-#define DESCRIPTION "Fast and Portable Cryptography Extension Library for Pyrogram\n" \
-    "TgCrypto is part of Pyrogram, a Telegram MTProto library for Python\n" \
-    "You can learn more about Pyrogram here: https://pyrogram.org\n"
+#define DESCRIPTION "Fast and Portable Cryptography Extension Library for Mambagram\n" \
+    "SuperTG is part of Mambagram, a Telegram MTProto library for Python\n" 
 
 // Utility function to handle PyBuffer release safely using RAII
 struct PyBufferGuard {
