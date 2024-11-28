@@ -1,4 +1,4 @@
-Supertg
+__Supertg__
 Fast and Portable Cryptography Extension Library for Python
 
 Supertg is a high-performance cryptography library written in C++ as a Python extension. It is designed to be portable, efficient, and easy to integrate into Python projects. SuperCrypto provides implementations of essential cryptographic algorithms, commonly used in secure communications, including:
@@ -13,13 +13,11 @@ Installation
 Install Supertg via PyPI:
 
 bash
-Copy code
-pip install Supertg
-API
+`pip install Supertg`
+__API__
 The Supertg library provides the following API:
 
-```python
-Copy code
+`python
 def ige256_encrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...
 def ige256_decrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...
 
@@ -27,13 +25,14 @@ def ctr256_encrypt(data: bytes, key: bytes, iv: bytes, state: bytes) -> bytes: .
 def ctr256_decrypt(data: bytes, key: bytes, iv: bytes, state: bytes) -> bytes: ...
 
 def cbc256_encrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...
-def cbc256_decrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...
+def cbc256_decrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...`
+
 Usage Examples
-IGE Mode```
-python
+IGE Mode
+`python
 Copy code
 import os
-import Supertg
+import Supertg`
 
 data = os.urandom(10 * 1024 * 1024 + 7)  # 10 MB of random data + 7 bytes to show padding
 key = os.urandom(32)  # Random Key
