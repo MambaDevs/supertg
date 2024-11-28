@@ -1,4 +1,4 @@
-__Supertg__
+#Supertg
 Fast and Portable Cryptography Extension Library for Python
 
 Supertg is a high-performance cryptography library written in C++ as a Python extension. It is designed to be portable, efficient, and easy to integrate into Python projects. SuperCrypto provides implementations of essential cryptographic algorithms, commonly used in secure communications, including:
@@ -12,8 +12,9 @@ A compiler supporting C++17 or later.
 Installation
 Install Supertg via PyPI:
 
-bash
-`pip install Supertg`
+`bash
+pip install Supertg`
+
 __API__
 The Supertg library provides the following API:
 
